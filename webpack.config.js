@@ -32,7 +32,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true, // pulisce dist ad ogni build
-    publicPath: '/Middle-Weather/'
+    publicPath: '/MiddleWeather/'
 },
   plugins: [
     new HtmlWebpackPlugin({
