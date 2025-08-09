@@ -36,7 +36,12 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(async () => {
       showLoader(loading);
 
-     const apiKey = process.env.WEATHER_API_KEY;//NON SI TIPIZZA
+     const apiKey = process.env.WEATHER_API_KEY;
+
+     if (!apiKey) {
+  throw new Error('API key non trovata! Controlla il file .env');
+}
+
           const city: string = cityFromClick || input.value;
 
      
