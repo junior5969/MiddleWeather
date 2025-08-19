@@ -21,7 +21,18 @@ app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; style-src 'self' https://www.gstatic.com; script-src 'self';"
+    `
+      default-src 'self';
+      script-src 'self' https://www.gstatic.com https://translate.googleapis.com;
+      style-src 'self' https://www.gstatic.com 'unsafe-inline';
+      img-src 'self' data: https:;
+      font-src 'self' https://fonts.gstatic.com;
+      connect-src 'self' https://api.openweathermap.org;
+      frame-src https://www.google.com;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'self';
+    `.replace(/\n/g, ' ')
   );
   next();
 });
