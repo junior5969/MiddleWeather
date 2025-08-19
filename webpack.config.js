@@ -1,33 +1,37 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
-module.exports = {
+export default {
   mode: 'production',
   entry: './src/app.ts',
-  target: 'web', // bundle per browser
+  target: 'web', // compilazione per browser
   module: {
     rules: [
-      { 
-        test: /\.ts$/, 
-        use: 'ts-loader', 
-        exclude: [/node_modules/, /src\/server/],
-      },
-      { 
-        test: /\.css$/, 
-        use: ['style-loader', 'css-loader'] 
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: [/node_modules/],
       },
       {
-        test: /\.(jpg|jpeg|png|gif|svg|ico)$/i,
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|ico)$/i,
         type: 'asset/resource',
-        generator: { filename: 'img/[name][ext]' },
+        generator: {
+          filename: 'img/[name][ext]',
+        },
       },
     ],
   },
-  resolve: { extensions: ['.ts', '.js'] },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve('./dist'),
     clean: true,
     publicPath: '/',
   },
@@ -37,13 +41,17 @@ module.exports = {
       favicon: './img/favicon.ico',
       minify: true,
     }),
-    new CopyWebpackPlugin({ patterns: [{ from: 'img', to: 'img' }] }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'img', to: 'img' }],
+    }),
   ],
   devServer: {
-    static: { directory: path.join(__dirname, 'dist') },
+    static: './dist',
     port: 3000,
     open: true,
     historyApiFallback: true,
-    proxy: { '/api': 'http://localhost:5000' },
+    proxy: {
+      '/api': 'http://localhost:5000', // proxy per backend
+    },
   },
 };
