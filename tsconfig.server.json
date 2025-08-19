@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "commonjs",
-    "outDir": "dist/server",
+    "outDir": "dist",
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["src/server/**/*.ts", "src/types.ts"]
+  "include": ["src/server/**/*.ts", "src/types.ts", "src/app.ts"]
 }
