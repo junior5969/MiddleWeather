@@ -29,8 +29,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serviamo la cartella dist (static files)
-app.use(express.static(path.join(__dirname, '../dist')));
+// Percorso della cartella client compilata
+const clientPath = path.join(__dirname, '../'); // /dist
+app.use(express.static(clientPath));
 
 // Endpoint API meteo
 const API_KEY = process.env.OPENWEATHER_API_KEY;
@@ -72,8 +73,8 @@ app.get("/api/weather", async (req, res) => {
 });
 
 // Fallback SPA: serve sempre index.html per tutte le route non API
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(clientPath, 'index.html'));
 });
 
 // Porta dinamica per Render
