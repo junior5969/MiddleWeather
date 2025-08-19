@@ -22,13 +22,14 @@ if (!API_KEY) {
 // Middleware CSP e CORS aggiornato
 app.use(cors());
 app.use(express.json());
+
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
     `
       default-src 'self';
-      script-src 'self';
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://www.gstatic.com;
       img-src 'self' data: https:;
       font-src 'self' https:;
       connect-src 'self' https://api.openweathermap.org;
