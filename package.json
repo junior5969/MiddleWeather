@@ -4,8 +4,8 @@
   "description": "Weather app with OpenWeather API, Express backend and Webpack + TypeScript frontend",
   "main": "server.ts",
 "scripts": {
-  "start": "node dist/server.js",
-    "build:server": "tsc -p tsconfig.server.json",
+  "start": "node dist/server/server.js",
+  "build:server": "tsc -p tsconfig.server.json",
   "build:client": "webpack --config webpack.config.js --mode production",
   "build": "npm run build:client && npm run build:server",
   "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
