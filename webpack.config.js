@@ -21,7 +21,7 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/',  // importante per webpack-dev-server
+    publicPath: '/MiddelWeather/',  // importante per webpack-dev-server
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico' }),
