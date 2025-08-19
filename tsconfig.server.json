@@ -3,10 +3,10 @@
     "target": "es2020",
     "module": "commonjs",
     "outDir": "dist",
-    "rootDir": "src/server",
+    "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/server/**/*.ts"]
+  "include": ["src/**/*"]
 }
