@@ -9,6 +9,9 @@ dotenv.config();
 
 const app = express();
 
+// Serviamo la cartella dist
+app.use(express.static(path.join(__dirname, '../dist')));
+
 // Verifica API_KEY
 const API_KEY = process.env.OPENWEATHER_API_KEY;
 if (!API_KEY) {
@@ -16,7 +19,7 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Middleware CSP e CORS
+// Middleware CSP e CORS aggiornato
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
@@ -25,7 +28,7 @@ app.use((req, res, next) => {
     `
       default-src 'self';
       script-src 'self';
-      style-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
       img-src 'self' data: https:;
       font-src 'self' https:;
       connect-src 'self' https://api.openweathermap.org;
@@ -34,8 +37,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Servi i file statici della cartella dist
-app.use(express.static(path.join(__dirname, '../dist')));
+// Porta dinamica per Render
+const PORT = process.env.PORT || 5000;
 
 // Endpoint meteo
 app.get("/api/weather", async (req, res) => {
@@ -72,13 +75,7 @@ app.get("/api/weather", async (req, res) => {
   }
 });
 
-// Tutte le altre route servono index.html (SPA)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
-
-// Porta dinamica per Render
-const PORT = process.env.PORT || 5000;
+// Avvio server
 app.listen(PORT, () => {
-  console.log(`✅ Server avviato su http://localhost:${PORT} o su Render`);
+  console.log(`✅ Server avviato su http://localhost:${PORT} o su Render: https://<tuo-app>.onrender.com`);
 });
