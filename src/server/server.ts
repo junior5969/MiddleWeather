@@ -28,8 +28,9 @@ app.use((req, res, next) => {
     "Content-Security-Policy",
     `
       default-src 'self';
-      script-src 'self' 'unsafe-inline';
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://www.gstatic.com;
+      script-src 'self';
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
+      style-src-elem 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net;
       img-src 'self' data: https:;
       font-src 'self' https:;
       connect-src 'self' https://api.openweathermap.org;
@@ -37,7 +38,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-
 // Porta dinamica per Render
 const PORT = process.env.PORT || 5000;
 
