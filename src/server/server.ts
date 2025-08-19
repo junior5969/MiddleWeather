@@ -23,15 +23,11 @@ app.use((req, res, next) => {
     "Content-Security-Policy",
     `
       default-src 'self';
-      script-src 'self' https://www.gstatic.com https://translate.googleapis.com;
-      style-src 'self' https://www.gstatic.com 'unsafe-inline';
+      script-src 'self';
+      style-src 'self' 'unsafe-inline';
       img-src 'self' data: https:;
-      font-src 'self' https://fonts.gstatic.com;
+      font-src 'self' https:;
       connect-src 'self' https://api.openweathermap.org;
-      frame-src https://www.google.com;
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
     `.replace(/\n/g, ' ')
   );
   next();

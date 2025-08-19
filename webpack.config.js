@@ -21,10 +21,10 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/MiddleWeather/',  // importante per webpack-dev-server
+    publicPath: '/', 
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico', publicPath: '/MiddleWeather/', }),
+    new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico', publicPath: '/', }),
     new CopyWebpackPlugin({ patterns: [{ from: 'img', to: 'img' }] }),
   ],
 devServer: {
