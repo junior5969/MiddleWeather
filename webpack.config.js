@@ -24,7 +24,7 @@ module.exports = {
     publicPath: '/MiddleWeather/',  // importante per webpack-dev-server
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico' }),
+    new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico', publicPath: '/MiddleWeather/', }),
     new CopyWebpackPlugin({ patterns: [{ from: 'img', to: 'img' }] }),
   ],
   devServer: {
