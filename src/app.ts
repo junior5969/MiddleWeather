@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
 const API_BASE_URL =
   window.location.hostname === "localhost"
     ? "http://localhost:5000/api"
-    : "https://middleweather-backend.onrender.com/api"; // <- URL Render
+    : "https://middleweather.onrender.com/api"; // <- URL Render
 
 async function getWeather(cityFromClick?: string): Promise<void> {
   buttonEffect(button);

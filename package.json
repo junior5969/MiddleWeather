@@ -9,7 +9,7 @@
   "build:client": "webpack --config webpack.config.js --mode production",
   "build": "npm run build:client && npm run build:server",
   "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-  "dev:server": "ts-node-dev --respawn --transpile-only src/server/server.ts",
+  "dev:server": "ts-node-dev --respawn --transpile-only server/server.ts",
   "dev:client": "webpack serve --config webpack.config.js --mode development"
 },
   "dependencies": {

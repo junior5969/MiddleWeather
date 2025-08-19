@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/app.ts',
   module: {
     rules: [
-      { test: /\.ts$/, use: 'ts-loader', exclude: /node_modules/ },
+      { test: /\.ts$/, use: 'ts-loader', exclude: [/node_modules/, /src\/server/], },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
         test: /\.(jpg|jpeg|png|gif|svg|ico)$/i,

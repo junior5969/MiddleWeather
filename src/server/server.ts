@@ -15,18 +15,17 @@ app.use(express.json());
 
 // Middleware CSP
 app.use((req, res, next) => {
-res.setHeader(
-  "Content-Security-Policy",
-  `
-    default-src 'self';
-    script-src 'self';
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://www.gstatic.com;
-    style-src-elem 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net https://www.gstatic.com;
-    img-src 'self' data: https:;
-    font-src 'self' https: https://www.gstatic.com;
-    connect-src 'self' https://api.openweathermap.org;
-  `.replace(/\n/g, ' ')
-);
+  res.setHeader(
+    "Content-Security-Policy",
+    [
+      "default-src 'self' https: data:;",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;",
+      "font-src 'self' https://fonts.gstatic.com;",
+      "img-src 'self' data: https:;",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net;",
+      "connect-src 'self' https://api.openweathermap.org;"
+    ].join(" ")
+  );
   next();
 });
 
