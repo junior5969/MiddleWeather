@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "Weather app with OpenWeather API, Express backend and Webpack + TypeScript frontend",
   "main": "server.ts",
-  "scripts": {
-    "dev:server": "ts-node-dev --respawn --transpile-only src/server/server.ts",
-    "dev:client": "webpack serve --config webpack.config.js --mode development",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "build": "webpack --config webpack.config.js --mode production",
-    "start": "node dist/server.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  },
+"scripts": {
+  "start": "node dist/server.js",
+    "build:server": "tsc -p tsconfig.server.json",
+  "build:client": "webpack --config webpack.config.js --mode production",
+  "build": "npm run build:client && npm run build:server",
+  "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+  "dev:server": "ts-node-dev --respawn --transpile-only src/server/server.ts",
+  "dev:client": "webpack serve --config webpack.config.js --mode development"
+},
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",

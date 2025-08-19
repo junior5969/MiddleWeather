@@ -27,10 +27,10 @@ module.exports = {
     new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico', publicPath: '/MiddleWeather/', }),
     new CopyWebpackPlugin({ patterns: [{ from: 'img', to: 'img' }] }),
   ],
-  devServer: {
+devServer: {
     static: { directory: path.join(__dirname, 'dist') },
     port: 3000,
     open: true,
-    proxy: { '/api': 'http://localhost:5000' }, // tutte le chiamate /api vanno al backend
+    proxy: { '/api': 'http://localhost:5000' }, // in locale chiama il backend
   },
 };

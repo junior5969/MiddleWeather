@@ -22,12 +22,18 @@ window.addEventListener("DOMContentLoaded", () => {
   hiddenLoader(loading);
   darkMode.addEventListener("click", darkModeToggle);
 
-  async function getWeather(cityFromClick?: string): Promise<void> {
-    buttonEffect(button);
-    setTimeout(async () => {
-      showLoader(loading);
+// URL backend
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://middleweather-backend.onrender.com/api"; // <- URL Render
 
-      const city: string = cityFromClick || input.value;
+async function getWeather(cityFromClick?: string): Promise<void> {
+  buttonEffect(button);
+  setTimeout(async () => {
+    showLoader(loading);
+
+    const city: string = cityFromClick || input.value;
 
       try {
         if (!city.trim()) {
@@ -36,14 +42,14 @@ window.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        // 🔐 Chiamata unica al backend sicuro
-        const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+        // Chiamata unica al backend sicuro
+      const response = await fetch(`${API_BASE_URL}/weather?city=${encodeURIComponent(city)}`);
 
-        if (!response.ok) throw new Error(`Errore server: ${response.status}`);
+      if (!response.ok) throw new Error(`Errore server: ${response.status}`);
 
-        const { weatherData, forecastData } = await response.json();
+      const { weatherData, forecastData } = await response.json();
 
-        // 🎨 Render interfaccia
+        // Render interfaccia
         renderWeather(weatherData);
         renderFavorite(weatherData.name);
         updateFavoriteSection();
