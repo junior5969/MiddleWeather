@@ -1,21 +1,35 @@
-
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
-import fetch from "node-fetch"; // 
+import fetch from "node-fetch";
 import { GeoData } from "../types";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const API_KEY = process.env.OPENWEATHER_KEY;
 
+// Verifica API_KEY
+const API_KEY = process.env.OPENWEATHER_KEY;
+if (!API_KEY) {
+  console.error("❌ OPENWEATHER_KEY non è definita!");
+  process.exit(1);
+}
+
+// Middleware CSP e CORS
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; style-src 'self' https://www.gstatic.com; script-src 'self';"
+  );
+  next();
+});
 
-// 🔹 Endpoint meteo
+// Porta dinamica per Render
+const PORT = process.env.PORT || 5000;
+
+// Endpoint meteo
 app.get("/api/weather", async (req, res) => {
   const city = req.query.city as string;
   if (!city) return res.status(400).json({ error: "City is required" });
@@ -31,13 +45,11 @@ app.get("/api/weather", async (req, res) => {
 
     const { lat, lon } = geoData[0];
 
-    // Meteo attuale
-    const weatherRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}&lang=it`
-    );
-    const forecastRes = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}&lang=it`
-    );
+    // Meteo attuale e forecast
+    const [weatherRes, forecastRes] = await Promise.all([
+      fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}&lang=it`),
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}&lang=it`)
+    ]);
 
     if (!weatherRes.ok || !forecastRes.ok)
       return res.status(500).json({ error: "Errore nella richiesta dati meteo" });
@@ -52,7 +64,7 @@ app.get("/api/weather", async (req, res) => {
   }
 });
 
-// 🔹 Avvio server
+// Avvio server
 app.listen(PORT, () => {
-  console.log(`✅ Server avviato su http://localhost:${PORT}`);
+  console.log(`✅ Server avviato su http://localhost:${PORT} o su Render: https://<tuo-app>.onrender.com`);
 });
