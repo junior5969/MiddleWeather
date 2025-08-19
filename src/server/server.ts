@@ -13,14 +13,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Middleware CSP
+// Middleware CSP aggiornato per includere font da jsDelivr
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
     [
       "default-src 'self' https: data:;",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;",
-      "font-src 'self' https://fonts.gstatic.com;",
+      "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;", // Aggiunto jsDelivr
       "img-src 'self' data: https:;",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net;",
       "connect-src 'self' https://api.openweathermap.org;"
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 // Percorso della cartella client compilata
-const clientPath = path.join(__dirname, '../'); // /dist
+const clientPath = path.join(__dirname, '../dist'); // punta alla cartella dist corretta
 app.use(express.static(clientPath));
 
 // Endpoint API meteo

@@ -5,10 +5,18 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: './src/app.ts',
+  target: 'web', // genera bundle per browser
   module: {
     rules: [
-      { test: /\.ts$/, use: 'ts-loader', exclude: [/node_modules/, /src\/server/], },
-      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { 
+        test: /\.ts$/, 
+        use: 'ts-loader', 
+        exclude: [/node_modules/, /src\/server/], 
+      },
+      { 
+        test: /\.css$/, 
+        use: ['style-loader', 'css-loader'] 
+      },
       {
         test: /\.(jpg|jpeg|png|gif|svg|ico)$/i,
         type: 'asset/resource',
@@ -21,14 +29,14 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/', // Importante per SPA e routing
+    publicPath: '/', // per SPA e routing
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
       favicon: './img/favicon.ico',
-      publicPath: '/', // Assicura che tutti i link siano relativi alla root
-      minify: true,    // Minifica HTML per produzione
+      publicPath: '/',
+      minify: true,
     }),
     new CopyWebpackPlugin({ patterns: [{ from: 'img', to: 'img' }] }),
   ],
@@ -36,7 +44,7 @@ module.exports = {
     static: { directory: path.join(__dirname, 'dist') },
     port: 3000,
     open: true,
-    historyApiFallback: true, // IMPORTANTISSIMO per SPA su devServer
-    proxy: { '/api': 'http://localhost:5000' }, // backend locale
+    historyApiFallback: true, // per SPA
+    proxy: { '/api': 'http://localhost:5000' },
   },
 };
