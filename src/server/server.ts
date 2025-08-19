@@ -1,5 +1,5 @@
 import express from "express";
-import path from 'path';
+import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
@@ -13,14 +13,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Middleware CSP aggiornato per includere font da jsDelivr
+// Middleware CSP
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
     [
       "default-src 'self' https: data:;",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;",
-      "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;", // Aggiunto jsDelivr
+      "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;",
       "img-src 'self' data: https:;",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net;",
       "connect-src 'self' https://api.openweathermap.org;"
@@ -29,9 +29,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Percorso della cartella client compilata
-const clientPath = path.join(__dirname, '../dist'); // punta alla cartella dist corretta
-app.use(express.static(clientPath));
+// Percorso corretto dei file client
+const clientPath = path.join(__dirname, '../..'); // Risali da dist/server → root
+app.use(express.static(path.join(clientPath, 'dist')));
 
 // Endpoint API meteo
 const API_KEY = process.env.OPENWEATHER_API_KEY;
@@ -74,7 +74,7 @@ app.get("/api/weather", async (req, res) => {
 
 // Fallback SPA: serve sempre index.html per tutte le route non API
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(clientPath, 'index.html'));
+  res.sendFile(path.join(clientPath, 'dist', 'index.html'));
 });
 
 // Porta dinamica per Render
