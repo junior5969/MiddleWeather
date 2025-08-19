@@ -21,16 +21,22 @@ module.exports = {
     filename: 'app.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/', 
+    publicPath: '/', // Importante per SPA e routing
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: './index.html', favicon: './img/favicon.ico', publicPath: '/', }),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      favicon: './img/favicon.ico',
+      publicPath: '/', // Assicura che tutti i link siano relativi alla root
+      minify: true,    // Minifica HTML per produzione
+    }),
     new CopyWebpackPlugin({ patterns: [{ from: 'img', to: 'img' }] }),
   ],
-devServer: {
+  devServer: {
     static: { directory: path.join(__dirname, 'dist') },
     port: 3000,
     open: true,
-    proxy: { '/api': 'http://localhost:5000' }, // in locale chiama il backend
+    historyApiFallback: true, // IMPORTANTISSIMO per SPA su devServer
+    proxy: { '/api': 'http://localhost:5000' }, // backend locale
   },
 };

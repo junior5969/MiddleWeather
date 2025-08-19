@@ -1,4 +1,5 @@
 import express from "express";
+import path from 'path';
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
@@ -33,8 +34,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Porta dinamica per Render
-const PORT = process.env.PORT || 5000;
+// Servi i file statici della cartella dist
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Endpoint meteo
 app.get("/api/weather", async (req, res) => {
@@ -71,7 +72,13 @@ app.get("/api/weather", async (req, res) => {
   }
 });
 
-// Avvio server
+// Tutte le altre route servono index.html (SPA)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+// Porta dinamica per Render
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅ Server avviato su http://localhost:${PORT} o su Render: https://<tuo-app>.onrender.com`);
+  console.log(`✅ Server avviato su http://localhost:${PORT} o su Render`);
 });
