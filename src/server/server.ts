@@ -9,9 +9,9 @@ dotenv.config();
 const app = express();
 
 // Verifica API_KEY
-const API_KEY = process.env.OPENWEATHER_KEY;
+const API_KEY = process.env.OPENWEATHER_API__KEY;
 if (!API_KEY) {
-  console.error("❌ OPENWEATHER_KEY non è definita!");
+  console.error("❌ OPENWEATHER_API_KEY non è definita!");
   process.exit(1);
 }
 
