@@ -65,6 +65,8 @@ export function renderForecast(data: ForecastResponse): void {
   ) as HTMLDivElement;
     forecastInnerSection.innerHTML = ""; // pulisci prima
 
+    const todayStr = new Date().toISOString().split("T")[0]; // data odierna da rimuovere poi nell'elenco delle previsioni future
+
   //creiamo un oggetto per raggruppare le previsioni per data
   //ogni chiave sarà una data e il valore sarà un array di temperature per quella data
   const dailyMap: { [date: string]: ForecastEntry[] } = {};
@@ -90,6 +92,7 @@ export function renderForecast(data: ForecastResponse): void {
   //infine, creiamo un card per ogni data con i dati ottenuti
 
     const forecastHTML = Object.entries(dailyMap)
+      .filter(([date]) => date !== todayStr) // esclude oggi
     .slice(0, 5)
     .map(([date, entries]) => {
       const temps = entries.map((e) => e.main.temp);
