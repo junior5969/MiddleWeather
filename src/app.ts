@@ -23,10 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
   darkMode.addEventListener("click", darkModeToggle);
 
 // URL backend
-const API_BASE_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:5000/api"
-    : "https://middleweather.onrender.com/api"; // <- URL Render
+const API_BASE_URL = "https://middleweather.onrender.com/api";
 
 async function getWeather(cityFromClick?: string): Promise<void> {
   buttonEffect(button);
