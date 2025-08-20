@@ -3,7 +3,7 @@ import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-import { GeoData } from "../types";
+import { GeoData } from "../shared/types";
 
 dotenv.config();
 
@@ -30,8 +30,8 @@ app.use((req, res, next) => {
 });
 
 // Percorso corretto dei file client
-const clientPath = path.join(__dirname, '../..'); // Risali da dist/server → root
-app.use(express.static(path.join(clientPath, 'dist')));
+const clientPath = path.join(__dirname, '../client');
+app.use(express.static(clientPath));
 
 // Endpoint API meteo
 const API_KEY = process.env.OPENWEATHER_API_KEY;
@@ -74,7 +74,7 @@ app.get("/api/weather", async (req, res) => {
 
 // Fallback SPA: serve sempre index.html per tutte le route non API
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(clientPath, 'dist', 'index.html'));
+  res.sendFile(path.join(clientPath, 'index.html'));
 });
 
 // Porta dinamica per Render

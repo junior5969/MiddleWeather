@@ -4,7 +4,7 @@ import {
   WeatherApiResponse,
   ForecastResponse,
   ForecastEntry,
-} from "./types";
+} from "./shared/types";
 import { getIconById, windSpeed, averageTemp } from "./domUtils";
 import { saveFavoriteCity, getFavoriteCity } from "./storage";
 

@@ -4,8 +4,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default {
   mode: 'production',
-  entry: './src/app.ts',
-  target: 'web', // compilazione per browser
+  entry: './src/app.ts',   // il tuo file principale frontend
+  target: 'web',           // compilazione per browser
   module: {
     rules: [
       {
@@ -31,27 +31,27 @@ export default {
   },
   output: {
     filename: 'app.js',
-    path: path.resolve('./dist'),
+    path: path.resolve('./dist/client'), // separiamo il client
     clean: true,
     publicPath: '/',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
-      favicon: './img/favicon.ico',
+      template: './index.html',            // usa il tuo index.html root
+      favicon: './img/favicon.ico',        // favicon se ce l’hai nella root /img
       minify: true,
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: 'img', to: 'img' }],
+      patterns: [{ from: 'img', to: 'img' }], // copia la cartella img
     }),
   ],
   devServer: {
-    static: './dist',
+    static: './dist/client',
     port: 3000,
     open: true,
     historyApiFallback: true,
     proxy: {
-      '/api': 'http://localhost:5000', // proxy per backend
+      '/api': 'http://localhost:5000', // proxy verso il backend in locale
     },
   },
 };
