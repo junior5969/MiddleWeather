@@ -3,7 +3,7 @@ import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
-import { GeoData } from "../shared/types";
+import { GeoData } from "./shared/types";
 
 dotenv.config();
 
