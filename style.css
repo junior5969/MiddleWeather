@@ -382,7 +382,6 @@ transform: translateY(-5px) scale(1.05);
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  justify-content: center;
   text-align: center;
   gap: 4rem;
   width: max-content;
@@ -402,6 +401,10 @@ transform: translateY(-5px) scale(1.05);
 .forecast-card {
 padding: 5px;
 border-radius: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+min-width: 120px;
 }
 
 .forecast-card:hover {
@@ -491,6 +494,10 @@ line-height: 1.8rem;
 
   #inner-element {
     max-width: 400px;
+  }
+
+  #forecast {
+    justify-content: center;
   }
 
   #forecast img {
