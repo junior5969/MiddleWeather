@@ -381,7 +381,7 @@ transform: translateY(-5px) scale(1.05);
 #forecast {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   text-align: center;
   gap: 4rem;
