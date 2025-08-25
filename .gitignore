@@ -20,6 +20,7 @@ yarn-error.log*
 #Webpack folder
 dist/
 
-# Ignora file JS compilati
+# Ignora file JS compilati tranne webpack.config.js
 *.js
+!webpack.config.js
 *.js.map
