@@ -9,11 +9,11 @@ dotenv.config();
 
 const app = express();
 
-// Middleware CORS e JSON
+
 app.use(cors());
 app.use(express.json());
 
-// Middleware CSP
+
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
